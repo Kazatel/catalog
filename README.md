@@ -7,9 +7,9 @@
 
 ### ii. The complete URL to your hosted web application.
 
-http://tkazatelgames.tk/
-if above is not working
-http://18.195.120.209/
+http://tkazatelgames.tk/ \
+if above is not working \
+http://18.195.120.209/ \
 
 
 ### iii. A summary of software you installed and configuration changes made.
@@ -18,75 +18,78 @@ http://18.195.120.209/
 ***
 ###### User Management 1 - Can you log into the server as the user grader using the submitted key?
 
-1) create user grader
-```sudo adduser grader```
-2) check existing user file
-```sudo ls /etc/sudoers.d/```
+1) create user grader\
+```sudo adduser grader```\
+2) check existing user file\
+```sudo ls /etc/sudoers.d/```\
 	> 90-cloud-init-users  README
 	
 ###### User Management 3 - Is the grader user given sudo access?
 
-3) copy existing file and then edit it 
+3) copy existing file and then edit it \
    ```sudo cp /etc/sudoers.d/90-cloud-init-users /etc/sudoers.d/grader```
     
-   ``` sudo vi /etc/sudoers.d/grader```
-   Replace ubuntu user with grader by vi type as below
-    	:%s/ubuntu/grader/
-    Verify configuration
-    ```sudo cat /etc/sudoers.d/grader```
+   ``` sudo vi /etc/sudoers.d/grader```\
+   Replace ubuntu user with grader by vi type as below\
+    	:%s/ubuntu/grader/ \
+    Verify configuration\
+    ```sudo cat /etc/sudoers.d/grader```\
 ###### User Management 1 - Can you log into the server as the user grader using the submitted key?
-4) Change user to grader
-```su - grader```
-    Veriffy sudo rights, by root accesdible folder
-    ```sudo ls /etc/sudoers.d/```
 
-5) Generate RSA key for user grader 
-```ssh-keygen```
-```ls -l .ssh/```
-Rename public key
-```mv .ssh/id_rsa.pub .ssh/authorized_keys```
-Set permissions
-```chmod 700 .ssh```
-```chmod 644 .ssh/authorized_keys```
+4) Change user to grader\
+```su - grader```\
+    Veriffy sudo rights, by root accesdible folder\
+    ```sudo ls /etc/sudoers.d/```\
+
+5) Generate RSA key for user grader \
+```ssh-keygen```\
+```ls -l .ssh/```\
+Rename public key\
+```mv .ssh/id_rsa.pub .ssh/authorized_keys```\
+Set permissions\
+```chmod 700 .ssh```\
+```chmod 644 .ssh/authorized_keys```\
 
 ###### User Management 2 - Is remote login of the root user disabled?
-6) Disable root remote acccess 
-sudo vi /etc/ssh/sshd_config 
-```	#PermitRootLogin prohibit-password```
-```	PermitRootLogin no```
+
+6) Disable root remote acccess \
+sudo vi /etc/ssh/sshd_config \
+```	#PermitRootLogin prohibit-password```\
+```	PermitRootLogin no```\
 
 ###### Security 3 - Are the applications up-to-date?
-7) update and upgrade
-```sudo apt-get update```	
-```sudo apt-get upgrade```	
+
+7) update and upgrade\
+```sudo apt-get update```\	
+```sudo apt-get upgrade```\	
 
 ###### Security 2 - Are users required to authenticate using RSA keys?  #have been set by default
 
-8) Force RSA key authetification
-    sudo vi /etc/shh/sshd_config
-```	PasswordAuthentication no```
+8) Force RSA key authetification\
+    sudo vi /etc/shh/sshd_config\
+```	PasswordAuthentication no```\
 	
 	
 
 ###### Security 4 - Is SSH hosted on non-default port?
 
 
-9) allow ports on AWS
-https://lightsail.aws.amazon.com/ls/webapp/eu-central-1/instances/ubuntu-udacity-catalog1/networking
-add new port to lightsail firewall =>  
-Application = Custom, Protocol = TCP, Port = 2200
-Application = Custom, Protocol = TCP, Port = 123
+9) allow ports on AWS\
+https://lightsail.aws.amazon.com/ls/webapp/eu-central-1/instances/ubuntu-udacity-catalog1/networking\
+add new port to lightsail firewall =>  \
+Application = Custom, Protocol = TCP, Port = 2200\
+Application = Custom, Protocol = TCP, Port = 123\
 
-10) change default port for SSH
-sudo vi /etc/ssh/sshd_config
-```	#Port 22```
-```	Port 2200```
-Restart ssh service
-```sudo service ssh restart```
+10) change default port for SSH\
+sudo vi /etc/ssh/sshd_config\
+```	#Port 22```\
+```	Port 2200```\
+Restart ssh service\
+```sudo service ssh restart```\
 
 ###### Security 1 - Is the firewall configured to only allow for SSH, HTTP, and NTP?
 
-11) Setup firewall policy , enable ports 2200, 80, 123
+11) Setup firewall policy , enable ports 2200, 80, 123\
     ```
     sudo ufw status
     sudo ufw default deny incoming
@@ -100,17 +103,18 @@ Restart ssh service
 
 ###### Application Functionality 1 - Is there a web server running on port 80?
 
-11) install apache server
-```sudo apt-get install apache2```
-check apache conf
-```sudo cat /etc/apache2/apache2.conf```
-```sudo vi /etc/apache2/ports.conf```   # pot 80 already in use
-```sudo /etc/init.d/apache2 start```
+11) install apache server\
+```sudo apt-get install apache2```\
+check apache conf\
+```sudo cat /etc/apache2/apache2.conf```\
+```sudo vi /etc/apache2/ports.conf```   # pot 80 already in use\
+```sudo /etc/init.d/apache2 start```\
+
 ###### Application Functionality 2 - Has the database server been configured to properly serve data?
 
-12) install postgresql with components
-```sudo apt-get install postgresql postgresql-contrib libpq-dev```
-    only local access to DB is allowed
+12) install postgresql with components\
+```sudo apt-get install postgresql postgresql-contrib libpq-dev```\
+    only local access to DB is allowed\
     ```
     sudo vi /etc/postgresql/9.5/main/pg_hba.conf		#only local is allowed by default
 	local   all             postgres                                peer
@@ -119,16 +123,16 @@ check apache conf
 	host    all             all             ::1/128                 md5
     ```
     
-13) Start DB service
+13) Start DB service\
 ```sudo service postgresql start```
 
-14) Configure db
-Change user and access DB CLI
+14) Configure db\
+Change user and access DB CLI\
     ```
     $ sudo -u postgres -i
     $ psql
     ```
-    Inside db CLI
+    Inside db CLI\
     ```
     CREATE USER catalog WITH PASSWORD grader;
     ALTER USER catalog CREATEDB;
@@ -142,10 +146,10 @@ Change user and access DB CLI
 
 ######  Application Functionality 3 - Has the web server been configured to serve the Item Catalog application?
 
-15) Install wsgi app
-```sudo apt-get install libapache2-mod-wsgi python-dev```
-    enable wsgi
-```sudo a2enmod wsgi```
+15) Install wsgi app\
+```sudo apt-get install libapache2-mod-wsgi python-dev```\
+    enable wsgi\
+```sudo a2enmod wsgi```\
 
 16) Setup virtual env for python
     ```
@@ -172,8 +176,8 @@ Change user and access DB CLI
     cd /var/www/catalog
     git clone https://github.com/Kazatel/catalog.git
     ```
-19) Configure wsgi app
-sudo vi /var/www/catalog/catalog.wsgi
+19) Configure wsgi app\
+sudo vi /var/www/catalog/catalog.wsgi\
     ```
     #!/usr/bin/python
     import sys
@@ -184,7 +188,7 @@ sudo vi /var/www/catalog/catalog.wsgi
     from catalog import app as application
     application.secret_key = 'kazatel1'
     ```
-20) Configure appache
+20) Configure appache\
 sudo vi /etc/apache2/sites-enabled/catalog.conf
 
     ```
