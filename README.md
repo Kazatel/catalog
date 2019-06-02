@@ -9,7 +9,7 @@
 
 http://tkazatelgames.tk/ \
 if above is not working \
-http://18.195.120.209/ \
+http://18.195.120.209/ 
 
 
 ### iii. A summary of software you installed and configuration changes made.
@@ -19,9 +19,9 @@ http://18.195.120.209/ \
 ###### User Management 1 - Can you log into the server as the user grader using the submitted key?
 
 1) create user grader\
-```sudo adduser grader```\
+```sudo adduser grader```
 2) check existing user file\
-```sudo ls /etc/sudoers.d/```\
+```sudo ls /etc/sudoers.d/```
 	> 90-cloud-init-users  README
 	
 ###### User Management 3 - Is the grader user given sudo access?
@@ -33,13 +33,13 @@ http://18.195.120.209/ \
    Replace ubuntu user with grader by vi type as below\
     	:%s/ubuntu/grader/ \
     Verify configuration\
-    ```sudo cat /etc/sudoers.d/grader```\
+    ```sudo cat /etc/sudoers.d/grader```
 ###### User Management 1 - Can you log into the server as the user grader using the submitted key?
 
 4) Change user to grader\
 ```su - grader```\
     Veriffy sudo rights, by root accesdible folder\
-    ```sudo ls /etc/sudoers.d/```\
+    ```sudo ls /etc/sudoers.d/```
 
 5) Generate RSA key for user grader \
 ```ssh-keygen```\
@@ -48,26 +48,26 @@ Rename public key\
 ```mv .ssh/id_rsa.pub .ssh/authorized_keys```\
 Set permissions\
 ```chmod 700 .ssh```\
-```chmod 644 .ssh/authorized_keys```\
+```chmod 644 .ssh/authorized_keys```
 
 ###### User Management 2 - Is remote login of the root user disabled?
 
 6) Disable root remote acccess \
 sudo vi /etc/ssh/sshd_config \
 ```	#PermitRootLogin prohibit-password```\
-```	PermitRootLogin no```\
+```	PermitRootLogin no```
 
 ###### Security 3 - Are the applications up-to-date?
 
 7) update and upgrade\
 ```sudo apt-get update```\	
-```sudo apt-get upgrade```\	
+```sudo apt-get upgrade```	
 
 ###### Security 2 - Are users required to authenticate using RSA keys?  #have been set by default
 
 8) Force RSA key authetification\
     sudo vi /etc/shh/sshd_config\
-```	PasswordAuthentication no```\
+```	PasswordAuthentication no```
 	
 	
 
@@ -78,7 +78,7 @@ sudo vi /etc/ssh/sshd_config \
 https://lightsail.aws.amazon.com/ls/webapp/eu-central-1/instances/ubuntu-udacity-catalog1/networking\
 add new port to lightsail firewall =>  \
 Application = Custom, Protocol = TCP, Port = 2200\
-Application = Custom, Protocol = TCP, Port = 123\
+Application = Custom, Protocol = TCP, Port = 123
 
 10) change default port for SSH\
 sudo vi /etc/ssh/sshd_config\
@@ -108,13 +108,13 @@ Restart ssh service\
 check apache conf\
 ```sudo cat /etc/apache2/apache2.conf```\
 ```sudo vi /etc/apache2/ports.conf```   # pot 80 already in use\
-```sudo /etc/init.d/apache2 start```\
+```sudo /etc/init.d/apache2 start```
 
 ###### Application Functionality 2 - Has the database server been configured to properly serve data?
 
 12) install postgresql with components\
 ```sudo apt-get install postgresql postgresql-contrib libpq-dev```\
-    only local access to DB is allowed\
+    only local access to DB is allowed
     ```
     sudo vi /etc/postgresql/9.5/main/pg_hba.conf		#only local is allowed by default
 	local   all             postgres                                peer
@@ -127,12 +127,12 @@ check apache conf\
 ```sudo service postgresql start```
 
 14) Configure db\
-Change user and access DB CLI\
+Change user and access DB CLI
     ```
     $ sudo -u postgres -i
     $ psql
     ```
-    Inside db CLI\
+    Inside db CLI
     ```
     CREATE USER catalog WITH PASSWORD grader;
     ALTER USER catalog CREATEDB;
@@ -149,7 +149,7 @@ Change user and access DB CLI\
 15) Install wsgi app\
 ```sudo apt-get install libapache2-mod-wsgi python-dev```\
     enable wsgi\
-```sudo a2enmod wsgi```\
+```sudo a2enmod wsgi```
 
 16) Setup virtual env for python
     ```
@@ -177,7 +177,7 @@ Change user and access DB CLI\
     git clone https://github.com/Kazatel/catalog.git
     ```
 19) Configure wsgi app\
-sudo vi /var/www/catalog/catalog.wsgi\
+sudo vi /var/www/catalog/catalog.wsgi
     ```
     #!/usr/bin/python
     import sys
