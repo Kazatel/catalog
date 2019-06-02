@@ -1,0 +1,49 @@
+{% extends "main.html" %}
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+{% block content %}
+{% include "flashMessage.html" %}
+
+<div class="row">
+	<div class="col-md-6 col-md-offset-1 padding-top">
+		<form action="#" method = "post">
+			<div class="form-group">
+				<label for="name">Name:</label>
+				<input type ="text" maxlength="100" class="form-control" name="name" value="{{item.name }}">
+
+				<label for="description">Description:</label>
+				<textarea class="form-control" maxlength="250" rows="3" name="description">{{item.description}}</textarea>
+
+				<label for="price">Price:</label>
+				<div class="input-group">
+					<div class="input-group-addon">$</div>
+					<input type ="text" maxlength="10" class="form-control" name="price" value="{{item.price}}">
+				</div>
+
+				<label for="genre">Genre:</label>
+				<select id="genre_select" name="genre" class="form-control">
+					<option value="select">Select genre</option>
+					<option value="2" {% if item.genre_id == 2 %}selected="selected"{% endif %}>Action</option>
+					<option value="3" {% if item.genre_id == 3 %}selected="selected"{% endif %}>Adventure</option>
+					<option value="4" {% if item.genre_id == 4 %}selected="selected"{% endif %}>Role-playing</option>
+					<option value="5" {% if item.genre_id == 5 %}selected="selected"{% endif %}>Simulation</option>
+					<option value="6" {% if item.genre_id == 6 %}selected="selected"{% endif %}>Strategy</option>
+					<option value="7" {% if item.genre_id == 7 %}selected="selected"{% endif %}>Sports</option>
+				</select>
+
+				<button type="submit" class="btn btn-default" id="submit" type="submit">
+				<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>Save</button>
+				<a href = '{{url_for('main')}}'>
+					<button class="btn btn-default delete" type="button">
+					<span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancel</button>
+				</a>
+			</div>
+		</form>
+	</div>
+</div>
+
+
+
+
+{% endblock %}

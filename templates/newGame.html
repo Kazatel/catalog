@@ -1,0 +1,42 @@
+{% extends "main.html" %}
+{% block header %}
+{% include "header.html" %}
+{% endblock %}
+{% block content %}
+{% include "flashMessage.html" %}
+
+
+<h1>New Game</h1>
+<div class="row">
+	<div class="col-md-6 col-md-offset-1 padding-top">
+		<form action="#" method = "post">
+			<div class="form-group">
+				<label for="name">Name:</label>
+				<input type ="text" maxlength="50" class="form-control" name="name"placeholder="Name of the Game">
+
+				<label for="description">Description:</label>
+				<textarea class="form-control" maxlength="250" rows="3" name="description" placeholder="Description of the Game"></textarea>
+
+				<label for="price">Price:</label>
+				<div class="input-group">
+					<div class="input-group-addon">$</div>
+					<input type ="text" class="form-control" maxlength="10" name="price" placeholder="Price in $">
+				</div>
+				<label for="genre">Genre:</label>
+				<select id="genre_select" name="genre" class="form-control">
+ 					<option value="select">Select genre</option>
+					<option value="2">Action</option>
+					<option value="3">Adventure</option>
+					<option value="4">Role-playing</option>
+					<option value="5">Simulation</option>
+					<option value="6">Strategy</option>
+					<option value="7">Sports</option>
+				</select>
+
+				<button type="submit" class="btn btn-default" id="submit" type="submit">
+				<span class="glyphicon glyphicon-save" aria-hidden="true"></span>Create</button>
+			</div>
+		</form>
+	</div>
+</div>
+{% endblock %}
