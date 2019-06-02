@@ -1,8 +1,8 @@
 # Project3
 
 ### i. The IP address and SSH port
-***IP:***	18.195.120.209
-***Port:*** 2200
+***IP:***	18.195.120.209 
+***Port:*** 2200 
 
 
 ### ii. The complete URL to your hosted web application.
