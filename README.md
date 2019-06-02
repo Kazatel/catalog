@@ -1,7 +1,7 @@
 # Project3
 
 ### i. The IP address and SSH port
-***IP:***	18.195.120.209 
+***IP:***	18.195.120.209 \
 ***Port:*** 2200 
 
 
