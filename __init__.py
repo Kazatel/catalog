@@ -1,4 +1,5 @@
-#!/usr/bin/env python2
+#!/var/www/catalog/venv/bin/python
+
 import json
 import random
 import string
@@ -17,13 +18,14 @@ from sqlalchemy.orm import sessionmaker
 app = Flask(__name__)
 
 CLIENT_ID = json.loads(
-    open('client_secrets.json', 'r').read())['web']['client_id']
+    open('/var/www/catalog/catalog/client_secrets.json', 'r').read())['web']['client_id']
 APPLICATION_NAME = "Games Application"
 
 
 # Connect to Database and create database session
-engine = create_engine('sqlite:///games.db',
-                       connect_args={'check_same_thread': False})
+engine = create_engine('postgresql://catalog:grader@localhost/catalog')
+#engine = create_engine('sqlite:///.db',
+#                       connect_args={'check_same_thread': False})
 Base.metadata.bind = engine
 
 DBSession = sessionmaker(bind=engine)
@@ -52,7 +54,7 @@ def fbconnect():
     app_id = json.loads(open('fb_client_secrets.json', 'r').read())[
         'web']['app_id']
     app_secret = json.loads(
-        open('fb_client_secrets.json', 'r').read())['web']['app_secret']
+        open('/var/www/catalog/catalog/fb_client_secrets.json', 'r').read())['web']['app_secret']
     url = 'https://graph.facebook.com/oauth/access_token?grant_type=fb_exchange_token&client_id=%s&client_secret=%s&fb_exchange_token=%s' % (
         app_id, app_secret, access_token)
     h = httplib2.Http()
@@ -408,7 +410,7 @@ def showGameListJSON(genre_id):
     return jsonify(Games=[i.serialize for i in games])
 
 
-if __name__ == '__main__':
-    app.secret_key = 'super_secret_key'
-    app.debug = True
-    app.run(host='0.0.0.0', port=8000)
+if __name__ == '__main__': 
+	app.secret_key = 'kazatel1' 
+	app.debug = True 
+	app.run()
