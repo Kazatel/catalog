@@ -60,8 +60,22 @@ sudo vi /etc/ssh/sshd_config \
 ###### Security 3 - Are the applications up-to-date?
 
 7) update and upgrade\
-```sudo apt-get update```\	
-```sudo apt-get upgrade```	
+   ```sudo apt-get update```  	
+   ```sudo apt-get upgrade```	
+   
+   Setup unattended-upgrades  
+   ```sudo apt install unattended-upgrades```  
+   edit /etc/apt/apt.conf.d/50unattended-upgrades  
+   uncomment line '${distro_id}:${distro_codename}-updates";'  
+   edit /etc/apt/apt.conf.d/20auto-upgrades
+   
+   ```
+   APT::Periodic::Update-Package-Lists "1";
+   APT::Periodic::Download-Upgradeable-Packages "1";
+   APT::Periodic::AutocleanInterval "7";
+   APT::Periodic::Unattended-Upgrade "1";
+   ```
+   
 
 ###### Security 2 - Are users required to authenticate using RSA keys?  #have been set by default
 
